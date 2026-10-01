@@ -22,6 +22,7 @@ import { debounce } from "./debounce.js";
 // a chave pra quem tinha cache antigo buscar de novo em vez de mostrar
 // detalhe faltando ate clicar em atualizar.
 const GAMES_CACHE_KEY = "pokemon-games-tracker:games-cache:v2";
+const GAMES_CACHE_TTL_MS = 6 * 60 * 60 * 1000; // igual ao s-maxage do proxy da IGDB
 const THEME_KEY = "pokemon-games-tracker:theme";
 const SHEET_TRANSITION_MS = 250;
 const SEARCH_DEBOUNCE_MS = 250;
@@ -443,17 +444,20 @@ function closeDetailSheet() {
 }
 
 async function loadGames({ forceRefresh }) {
+  let cacheEmDia = false;
   if (!forceRefresh) {
     const cached = readGamesCache();
     if (cached) {
-      state.games = cached;
+      state.games = cached.games;
+      cacheEmDia = !cached.velho;
       populateYearFilter();
       populatePlatformFilter();
       render();
     }
   }
 
-  if (!forceRefresh && state.games.length > 0) {
+  // Cache com mais de 6 horas: mostra o salvo e atualiza por baixo (antes o cache nunca vencia).
+  if (!forceRefresh && state.games.length > 0 && cacheEmDia) {
     return;
   }
 
@@ -513,7 +517,10 @@ function readGamesCache() {
       return null;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed.games) ? parsed.games : null;
+    if (!Array.isArray(parsed.games)) {
+      return null;
+    }
+    return { games: parsed.games, velho: !(Date.now() - (parsed.fetchedAt || 0) < GAMES_CACHE_TTL_MS) };
   } catch {
     return null;
   }

@@ -56,11 +56,13 @@ export function isGameCompleted(progress, gameId) {
 // Jogos ainda nao lancados (a IGDB da data de lancamento futura pra alguns
 // titulos ja anunciados) - separados pra virar uma secao propria "Em breve"
 // em vez de se misturar no meio da colecao ordenada por ano.
-export function splitUpcoming(games, currentYear = new Date().getFullYear()) {
+// Pela data exata: um jogo de dezembro, visto em outubro do mesmo ano, ainda vai lançar.
+// Sem a data (cache antigo), vale o ano.
+export function splitUpcoming(games, agora = new Date()) {
   const upcoming = [];
   const released = [];
   for (const game of games) {
-    if (game.year > currentYear) {
+    if (game.releaseDate ? game.releaseDate > agora.getTime() : game.year > agora.getFullYear()) {
       upcoming.push(game);
     } else {
       released.push(game);

@@ -51,6 +51,7 @@ function normalizeGames(rawResults) {
       id: game.id,
       name: game.name,
       year: game.first_release_date ? new Date(game.first_release_date * 1000).getFullYear() : null,
+      releaseDate: game.first_release_date ? game.first_release_date * 1000 : null,
       platforms: Array.isArray(game.platforms) ? game.platforms.map((platform) => platform.name).filter(Boolean) : [],
       coverUrl:
         game.cover && game.cover.image_id
