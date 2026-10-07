@@ -1,10 +1,16 @@
 # Pokémon Games Tracker
 
-![Tela inicial do Pokémon Games Tracker](docs/capa.png)
+![Capa do Pokémon Games Tracker](docs/capa.png)
 
 Lista dos jogos oficiais de Pokémon pra marcar os que você já jogou, dar nota e acompanhar o progresso. Os dados dos jogos vêm da IGDB.
 
 Site: https://pokemon-games-tracker.vercel.app
+
+[![CI](https://github.com/GuilhermeAraujoDeCastro/pokemon-games-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/GuilhermeAraujoDeCastro/pokemon-games-tracker/actions/workflows/ci.yml)
+
+| Coleção | Perfil e estatísticas | No celular |
+|---|---|---|
+| ![Lista de jogos com capas, busca e filtros](docs/screenshots/01-home.png) | ![Perfil com os jogos marcados, notas e o top 10](docs/screenshots/02-detalhe.png) | ![Coleção numa tela de celular](docs/screenshots/03-mobile.png) |
 
 ## O que tem
 
@@ -28,12 +34,12 @@ A IGDB exige um Client Secret da Twitch, que não pode aparecer no navegador. Po
 
 JavaScript puro em módulos ES, sem framework. Firebase Authentication e Firestore guardam as contas; o modo visitante usa `localStorage`. O Sentry é opcional, pra acompanhar erros em produção.
 
-No build, os nomes internos do JavaScript são embaralhados e o JS, o CSS e o HTML saem minificados. Quem abre o F12 no site publicado não vê o código legível.
+No build, os nomes internos do JavaScript são encurtados e o JS, o CSS e o HTML saem minificados, o que deixa os arquivos menores. Isso não protege nada: qualquer pessoa ainda consegue ler o que roda no navegador. O que é segredo de verdade (o Client Secret da IGDB) fica só na function da Vercel.
 
 ## Estrutura
 
 ```
-Pokemon-Games-Tracker/
+pokemon-games-tracker/
 ├── index.html
 ├── sw.js                  service worker (cache offline)
 ├── manifest.json
@@ -74,6 +80,10 @@ Variáveis de ambiente do projeto:
 
 As regras do Firestore ficam em `firestore.rules` e precisam ser publicadas no Firebase Console (Firestore Database, Regras).
 
-## Créditos e licença
+## Créditos e avisos
 
-Dados da IGDB, acessada pela API da Twitch; detalhes em CREDITS.md. O código está sob a licença MIT (veja o arquivo LICENSE).
+Dados da IGDB, acessada pela API da Twitch; detalhes em [CREDITS.md](CREDITS.md). Pokémon é marca da Nintendo, da Game Freak e da Creatures Inc. Este é um projeto de fã e de estudo, sem fins lucrativos e sem ligação com essas empresas.
+
+## Licença e contato
+
+Código sob a licença MIT (veja [LICENSE](LICENSE)). Feito por Guilherme Araujo de Castro: [portfólio](https://guilhermearaujodecastro.vercel.app) · [LinkedIn](https://www.linkedin.com/in/guilherme-araujo-de-castro) · guilhermeacastro.2006@gmail.com
