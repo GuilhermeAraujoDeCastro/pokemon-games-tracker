@@ -2,3 +2,7 @@ node_modules/
 js/config.js
 .env
 .vercel/
+
+# Segredos, deploy e logs locais
+.env.*
+*.log
