@@ -819,7 +819,7 @@ async function handleImportProgress(event) {
   const imported = parseImportedProgress(text);
   if (!imported) {
     el.backupError.hidden = false;
-    el.backupError.textContent = "Esse arquivo nao parece um backup valido do Pokemon Games Tracker.";
+    el.backupError.textContent = "Esse arquivo nao parece um backup valido do Pokémon Games Tracker.";
     return;
   }
   state.progress = imported;

@@ -1,6 +1,6 @@
 {
-  "name": "Pokemon Games Tracker",
-  "short_name": "Pokemon Tracker",
+  "name": "Pokémon Games Tracker",
+  "short_name": "Pokémon Tracker",
   "description": "Acompanhe quais jogos de Pokemon voce ja jogou, com notas e progresso.",
   "start_url": ".",
   "scope": ".",
